@@ -1,4 +1,4 @@
-// inspirações que utilizei:
+// inspirações que utilizamos:
 // tabelas https://pt.stackoverflow.com/questions/510792/como-formatar-uma-string-para-adicionar-espa%C3%A7os-%C3%A0-direita-numa-tabela-impressa
 // transformar int em string https://pt.stackoverflow.com/questions/43354/diferen%C3%A7a-entre-integer-valueofstring-e-integer-parseintstring
 // arte ascii https://patorjk.com/
@@ -114,10 +114,11 @@ public class Banco {
                     imprimirCabecalho(" Executando operação: CREATE =========");
                     System.out.print("ID do usuário: ");
                     String id = leitura.next();
+                    leitura.nextLine();
                     boolean testenumericoId = id.matches("[0-9]+");
                     if (testenumericoId == false) {
                         System.out.println(
-                            "[ERROR] Informe a idade em caracteres numéricos."
+                            "[ERROR] Informe o ID em caracteres numéricos."
                         );
                         return;
                     }
@@ -151,6 +152,7 @@ public class Banco {
                     }
                     System.out.print("Idade do usuário: ");
                     String idade = leitura.next();
+                    leitura.nextLine();
                     boolean testenumericoIdade = idade.matches("[0-9]+");
                     if (testenumericoIdade == false) {
                         System.out.println(
@@ -180,6 +182,7 @@ public class Banco {
                     }
                     System.out.print("Email do usuário: ");
                     String email = leitura.next();
+                    leitura.nextLine();
                     if (
                         email.indexOf("@") == -1 ||
                         (email.indexOf("@") != email.lastIndexOf("@"))
@@ -277,23 +280,27 @@ public class Banco {
                         return;
                     }
                     System.out.print(
-                        "Informe o ID do usuário a ser atualizado:"
+                        "Informe o ID do usuário a ser atualizado: "
                     );
-                    String idBusca = leitura.next();
+                    int idBusca = leitura.nextInt();
+                    leitura.nextLine();
                     boolean encontrado = false;
                     for (int i = 0; i < registrosUsuarios.size(); i++) {
                         String[] dados = registrosUsuarios.get(i).split(",");
-                        if (dados[0].equalsIgnoreCase(idBusca)) {
+                        if (Integer.parseInt(dados[0].trim()) == idBusca) {
                             System.out.print("Informe o novo ID: ");
                             String novoId = leitura.next();
+                            leitura.nextLine();
                             System.out.print("Informe o novo nome: ");
                             String novoNome = leitura.nextLine();
                             System.out.print("Informe a nova idade: ");
                             String novaIdade = leitura.next();
+                            leitura.nextLine();
                             System.out.print("Informe a nova cidade: ");
                             String novaCidade = leitura.nextLine();
                             System.out.print("Informe o novo email: ");
                             String novoEmail = leitura.next();
+                            leitura.nextLine();
                             registrosUsuarios.set(
                                 i,
                                 novoId +
@@ -333,6 +340,7 @@ public class Banco {
                         "Informe o ID do registro a ser removido: "
                     );
                     String idBusca = leitura.next();
+                    leitura.nextLine();
                     boolean encontrado = registrosUsuarios.removeIf(
                         registroUsuario ->
                             registroUsuario
@@ -410,10 +418,11 @@ public class Banco {
                     imprimirCabecalho(" Executando operação: CREATE =========");
                     System.out.print("ID da Empresa: ");
                     String id = leitura.next();
+                    leitura.nextLine();
                     boolean testenumericoId = id.matches("[0-9]+");
                     if (testenumericoId == false) {
                         System.out.println(
-                            "[ERROR] Informe a idade em caracteres numéricos."
+                            "[ERROR] Informe o ID em caracteres numéricos."
                         );
                         return;
                     }
@@ -423,7 +432,7 @@ public class Banco {
                         return;
                     }
                     System.out.print("Nome da Empresa: ");
-                    String nome = leitura.next();
+                    String nome = leitura.nextLine();
                     if (nome.length() < 2) {
                         System.out.println(
                             "[ERROR] Nome muito curto, informe um nome válido."
@@ -441,7 +450,7 @@ public class Banco {
                         return;
                     }
                     System.out.print("Nome da Cidade: ");
-                    String cidade = leitura.next();
+                    String cidade = leitura.nextLine();
                     boolean testenumericoCidade = cidade.matches("[0-9]+");
                     if (testenumericoCidade == true) {
                         System.out.println(
@@ -455,9 +464,9 @@ public class Banco {
                         );
                         return;
                     }
-                    System.out.print("Email da Empresa: ");
+                    System.out.print("Informe o Email da Empresa: ");
                     String email = leitura.next();
-                    System.out.print("Informe o email:");
+                    leitura.nextLine();
                     if (
                         email.indexOf("@") == -1 ||
                         (email.indexOf("@") != email.lastIndexOf("@"))
@@ -473,8 +482,9 @@ public class Banco {
                         );
                         return;
                     }
-                    System.out.print("CNPJ da Empresa: ");
+                    System.out.print("Informe o CNPJ da Empresa: ");
                     String cnpj = leitura.next();
+                    leitura.nextLine();
                     if (
                         cnpj.indexOf("/") == -1 ||
                         (cnpj.indexOf("/") != cnpj.lastIndexOf("/"))
@@ -489,10 +499,10 @@ public class Banco {
                         cnpj.indexOf("-") != cnpj.lastIndexOf("-")
                     ) {
                         System.out.println(
-                            "[ERROR] CNPJ inválido! Informe no formato: 12.XXX.345/0000-99" //máscara user friendly para cnpj
+                            "[ERROR] CNPJ inválido! Informe no formato: 12.XXX.345/0000-99"
                         );
                         return;
-                    } else if (cnpj.trim().length() != 16) {
+                    } else if (cnpj.trim().length() != 18) {
                         System.out.println(
                             "[ERROR] CNPJ inválido. Informe no formato: 12.XXX.345/0000-99"
                         );
@@ -507,6 +517,7 @@ public class Banco {
                     ) {
                         writeruser
                             .append(id.trim())
+                            .append(",")
                             .append(nome.trim())
                             .append(",")
                             .append(cidade.trim())
@@ -531,8 +542,8 @@ public class Banco {
                         )
                     ) {
                         String mascara =
-                            "%-4s | %-21s | %-22s | %-44s | %-35s%n";
-                        System.out.println("=".repeat(120));
+                            "%-4s | %-21s | %-22s | %-47s | %-35s%n";
+                        System.out.println("=".repeat(122));
                         System.out.printf(
                             mascara,
                             "ID",
@@ -541,7 +552,7 @@ public class Banco {
                             "EMAIL",
                             "CNPJ"
                         );
-                        System.out.println("=".repeat(120));
+                        System.out.println("=".repeat(122));
                         String linha;
                         while ((linha = reader.readLine()) != null) {
                             String[] dados = linha.split(",");
@@ -580,20 +591,24 @@ public class Banco {
                         "Informe o ID do usuário a ser atualizado: "
                     );
                     String idBusca = leitura.next();
+                    leitura.nextLine();
                     boolean encontrado = false;
                     for (int i = 0; i < registrosEmpresas.size(); i++) {
                         String[] dados = registrosEmpresas.get(i).split(",");
                         if (dados[0].equalsIgnoreCase(idBusca)) {
                             System.out.print("Informe o novo ID: ");
-                            String novoId = leitura.nextLine();
+                            String novoId = leitura.next();
+                            leitura.nextLine();
                             System.out.print("Informe o novo nome: ");
                             String novoNome = leitura.nextLine();
                             System.out.print("Informe a nova cidade: ");
                             String novaCidade = leitura.nextLine();
                             System.out.print("Informe o novo email: ");
                             String novoEmail = leitura.next();
+                            leitura.nextLine();
                             System.out.print("Informe o novo CNPJ: ");
                             String novoCnpj = leitura.next();
+                            leitura.nextLine();
                             registrosEmpresas.set(
                                 i,
                                 novoId.trim() +
@@ -632,7 +647,8 @@ public class Banco {
                     System.out.print(
                         "Informe o ID do registro a ser removido: "
                     );
-                    String idBusca = leitura.nextLine();
+                    String idBusca = leitura.next();
+                    leitura.nextLine();
                     boolean encontrado = registrosEmpresas.removeIf(
                         registroEmpresa ->
                             registroEmpresa
